@@ -12,10 +12,10 @@ cPickle is used in the project to store the preprocessed data and parameters. Wh
 
 # Project Structure
 - /codes
-    - main.py
-    - model.py # define models
-    - masked_cross_entropy.py #calculate entropy
-    - train.py # define tools for train the model
+    - [main.py](https://github.com/CodyMiao/DeepTUL/blob/master/codes/main.py)
+    - [model.py](https://github.com/CodyMiao/DeepTUL/blob/master/codes/model.py) # define models
+    - [masked_cross_entropy.py](https://github.com/CodyMiao/DeepTUL/blob/master/codes/masked_cross_entropy.py) #calculate entropy
+    - [train.py](https://github.com/CodyMiao/DeepTUL/blob/master/codes/train.py)  # define tools for train the model
     - /data
 - /data # preprocessed foursquare sample data (pickle file)
 - /docs # paper and presentation file
@@ -28,7 +28,7 @@ Train a new model:
 > python main.py 
 > ```
 
-Other parameters (refer to main.py):
+Other parameters (refer to [main.py](https://github.com/CodyMiao/DeepTUL/blob/master/codes/main.py)):
 - for training: 
     - learning_rate, lr_step, lr_decay, L2, clip, epoch_max, dropout_p
 - model definition: 
