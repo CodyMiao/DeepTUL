@@ -8,8 +8,7 @@ The sample data to evaluate our model can be found in the data folder, which con
 - Python 2.7
 - [Pytorch](https://pytorch.org/previous-versions/) 0.4.1
 
-cPickle is used in the project to store the preprocessed data and parameters. While appearing some warnings, pytorch 0.3.0 can also be used.
-
+cPickle is used in the project to store the preprocessed data and parameters. 
 # Project Structure
 - /codes
     - [main.py](https://github.com/CodyMiao/DeepTUL/blob/master/codes/main.py)
