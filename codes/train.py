@@ -6,9 +6,11 @@ import torch
 from torch.autograd import Variable
 import numpy as np
 import cPickle as pickle
+# import pickle
 from collections import deque, Counter
 from masked_cross_entropy import masked_cross_entropy
 import time
+from numpy import sqrt
 
 def input_data(data_user, mode):
     data_train = {}
@@ -176,6 +178,7 @@ def run_model_train(data, run_idx, mode, lr, clip, model, optimizer, criterion, 
             target_lengths = [len(s) for s in target1]
             target_padded = [pad_seq(s, max(target_lengths), 0) for s in target1]
             target_var = Variable(torch.LongTensor(target_padded))#batch x seq
+            history_lengths = [len(s) for s in history_loc]
             loc_padded = [pad_seq(s, max(history_lengths), 0) for s in history_loc]    
             history_loc = Variable(torch.LongTensor(loc_padded))
 
@@ -183,7 +186,7 @@ def run_model_train(data, run_idx, mode, lr, clip, model, optimizer, criterion, 
             history_uid = Variable(torch.LongTensor(uid_padded))
 
             tim_padded = [pad_seq(s, max(history_lengths), 0) for s in history_tim] 
-            history_uid = Variable(torch.LongTensor(tim_padded))
+            history_tim = Variable(torch.LongTensor(tim_padded))
             if use_cuda:
                 input_var_loc = input_var_loc.cuda()
                 input_var_tim = input_var_tim.cuda()
@@ -329,7 +332,7 @@ def run_model_test(data, run_idx, mode, lr, clip, model, optimizer, criterion, m
             history_uid = Variable(torch.LongTensor(uid_padded))
 
             tim_padded = [pad_seq(s, max(history_lengths), 0) for s in history_tim] 
-            history_uid = Variable(torch.LongTensor(tim_padded))
+            history_tim = Variable(torch.LongTensor(tim_padded))
             if use_cuda:
                 input_var_loc = input_var_loc.cuda()
                 input_var_tim = input_var_tim.cuda()
