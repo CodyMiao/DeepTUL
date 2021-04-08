@@ -10,16 +10,17 @@ from torch.nn import utils as nn_utils
 import time
 from collections import Counter
 import numpy as np
+from numpy import sqrt
 
 class Attn(nn.Module):
-    def __init__(self, method, hidden_size,loc_size,use_cuda):
+    def __init__(self, method, hidden_size,loc_size,use_cuda,strategies_type ):
         super(Attn, self).__init__()
 
         self.method = method 
         self.hidden_size = hidden_size
         self.use_cuda = use_cuda
         self.loc_size= loc_size
-
+        self.strategies_type =strategies_type 
         if self.method == 'general':
             self.attn = nn.Linear(self.hidden_size, self.hidden_size)
         elif self.method == 'concat':
@@ -79,10 +80,10 @@ class AttnRnnModel(nn.Module):
 
         if self.rnn_type == 'BILSTM':
             self.fc_attn = nn.Linear(input_attn_size, 2*self.hidden_size)
-            self.attn = Attn(self.attn_type, 2*self.hidden_size, 2*self.loc_size,self.use_cuda) 
+            self.attn = Attn(self.attn_type, 2*self.hidden_size, 2*self.loc_size,self.use_cuda,self.strategies_type ) 
         else:
             self.fc_attn = nn.Linear(input_attn_size, self.hidden_size)
-            self.attn = Attn(self.attn_type, self.hidden_size, 2*self.loc_size,self.use_cuda) 
+            self.attn = Attn(self.attn_type, self.hidden_size, 2*self.loc_size,self.use_cuda,self.strategies_type ) 
         input_size = self.loc_emb_size + self.tim_emb_size
 
         if self.rnn_type == 'GRU':

@@ -9,8 +9,8 @@ import json
 import argparse
 import numpy as np
 from json import encoder
-from batch_model import RnnModel, AttnRnnModel, LocAttnRnnModel, BiRnnModel
-from batch_train import input_data, run_model_train, run_model_test
+from model import AttnRnnModel
+from train import input_data, run_model_train, run_model_test
 import pickle
 import time
 
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_path', type=str, default='results/')
     parser.add_argument('--model_mode', type=str, default='attn_RNN',choices=['attn_RNN'])
     parser.add_argument('--GPU_number',type=str, default='6')
-    parser.add_argument('--file_name',type=str, default='48_100_1month_Tokyo')
+    parser.add_argument('--file_name',type=str, default='final_108_1month_Tokyo')
     args = parser.parse_args()
     parameters = args
 
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     print('model_mode=',parameters.model_mode)
     parameters.loc_size = parameters.data_user[1]['pid_number'] + 1
     parameters.tim_size = 2 * 24 + 5
-    parameters.use_cuda = False
+    parameters.use_cuda = True
     print("use_cuda=",parameters.use_cuda)
     print('loc_size=',parameters.loc_size, 'uid_size=',parameters.uid_size, 'tim_size=', parameters.tim_size)
     print('trace_size=',len(parameters.list_history))
